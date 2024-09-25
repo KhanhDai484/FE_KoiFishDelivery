@@ -3,6 +3,7 @@ import Header from "./components/header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Login from "./pages/login";
 import HomePage from "./pages/home";
+import RegisterPage from "./pages/register/register";
 
 const Layout = () => {
   return (
@@ -26,6 +27,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <RegisterPage />,
         },
       ],
     },

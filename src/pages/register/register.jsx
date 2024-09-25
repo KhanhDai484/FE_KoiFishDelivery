@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./register.scss";
 import axios from "axios";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../config/firebase"; // Điều chỉnh đường dẫn import theo cấu trúc dự án của bạn
 
-const initFormValue = {
-  userName: "",
-  email: "",
-  passWord: "",
-  confirmPassword: "",
-};
+function RegisterPage() {
+  const initFormValue = {
+    userName: "",
+    email: "",
+    passWord: "",
+    confirmPassword: "",
+  };
 
-const isEmptyValue = (value) => {
-  return !value || value.trim().length < 1;
-};
+  const handleGoogleSignUp = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log("User signed up with Google:", user);
+        // Xử lý logic khi đăng ký thành công ở đây, ví dụ như lưu thông tin người dùng vào cơ sở dữ liệu của bạn
+      })
+      .catch((error) => {
+        console.error("Error during Google sign up:", error);
+      });
+  };
 
-const isEmailValid = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
+  const isEmptyValue = (value) => {
+    return !value || value.trim().length < 1;
+  };
 
-export default function RegisterPage() {
+  const isEmailValid = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const [formValue, setFormValue] = useState(initFormValue);
   const [formError, setFormError] = useState({});
 
@@ -67,7 +81,7 @@ export default function RegisterPage() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // ngăn chặn việc reload lại trang
+    event.preventDefault(); // Ngăn chặn việc reload lại trang
 
     if (validateForm()) {
       console.log("form value", formValue);
@@ -75,8 +89,6 @@ export default function RegisterPage() {
       console.log("form invalid");
     }
   };
-
-  console.log(formError);
 
   return (
     <div className="container">
@@ -176,7 +188,7 @@ export default function RegisterPage() {
 
           <p className="or-color">Or</p>
 
-          <button className="google-signup-btn">
+          <button className="google-signup-btn" onClick={handleGoogleSignUp}>
             <img
               src="https://cdn-icons-png.flaticon.com/128/300/300221.png"
               alt="Google Icon"
@@ -189,3 +201,5 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+export default RegisterPage;
