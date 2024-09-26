@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../config/firebase";
 import { Form } from "antd";
 function Login() {
+  //dung hook navigation de chuyen giua cac trang
+  const navigate = useNavigate();
   const handleLoginGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
@@ -17,10 +19,28 @@ function Login() {
       });
   };
 
-  const handleLogin = () => {};
+  const handleLogin = async (values) => {
+    console.log(values);
+
+    try {
+      //gui request den server
+      const response = await api.post("login", values);
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+      //luu tam thong tin nguoi dung vao localStorage
+      //muon lay thong tin nguoi dung : username, role, ... thi lay trong
+      localStorage.setItem("user", JSON.stringify(response.data));
+      //sau khi login xong se chuyen den trang HomePage
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      alert("Nhap sai...!!!");
+    }
+  };
 
   return (
     <div className="login">
+      ``
       <iframe
         className="login__video"
         src="https://i.pinimg.com/originals/c9/bb/4c/c9bb4cf31417f2a8d59c5931d34ca67f.gif"
@@ -29,7 +49,6 @@ function Login() {
         allow="autoplay; fullscreen; picture-in-picture"
         allowFullScreen
       ></iframe>
-
       <div>
         <div className="wrapper">
           <div className="login__logo">
@@ -44,7 +63,7 @@ function Login() {
           <div className="line"></div>
           <div className="login__form">
             <h3>Login your account</h3>
-            <Form>
+            <Form onFinish={handleLogin}>
               <Form.Item
                 label="Username"
                 name="username"
