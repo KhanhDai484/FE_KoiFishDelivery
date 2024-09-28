@@ -1,10 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
-import { UserAddOutlined } from "@ant-design/icons";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { UserOutlined, UserAddOutlined } from "@ant-design/icons";
 import "./index.scss";
 
 function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Function to handle navigation to sections
+  const handleNavigation = (sectionId) => {
+    if (location.pathname !== "/") {
+      navigate("/"); // Nếu không phải ở trang Home, chuyển về trang Home
+    }
+    setTimeout(() => {
+      const headerOffset = 60; // Khoảng cách từ đầu trang đến đầu tiêu đề (có thể điều chỉnh)
+      const element = document.getElementById(sectionId);
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      // Cuộn tới vị trí tiêu đề nội dung
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }, 100); // Đợi 1 chút để đảm bảo trang đã tải trước khi cuộn
+  };
   return (
     <div className="header">
       <div className="header__logo">
@@ -20,25 +41,29 @@ function Header() {
       <nav className="header__nav">
         <ul>
           <li>
-            <Link to="/">Công ty</Link>
+            <a onClick={() => handleNavigation("introduction")}>
+              Giới thiệu về dịch vụ
+            </a>
           </li>
           <li>
-            <Link to="/">Dịch vụ vận chuyển</Link>
+            <a onClick={() => handleNavigation("process")}>
+              Quy trình vận chuyển
+            </a>
           </li>
           <li>
-            <Link to="/">Bảng giá</Link>
+            <a onClick={() => handleNavigation("pricing")}>Báo giá</a>
           </li>
           <li>
-            <Link to="/">Chính sách</Link>
+            <a onClick={() => handleNavigation("policy")}>Chính sách</a>
           </li>
           <li>
-            <Link to="/">Blog chia sẻ</Link>
+            <a onClick={() => handleNavigation("blog")}>Blog chia sẻ</a>
           </li>
           <li>
-            <Link to="/">Tin tức</Link>
+            <a onClick={() => handleNavigation("news")}>Tin tức</a>
           </li>
           <li>
-            <Link to="/">Câu hỏi thường gặp</Link>
+            <a onClick={() => handleNavigation("faq")}>FAQ</a>
           </li>
           <li>
             <Link to="/login">

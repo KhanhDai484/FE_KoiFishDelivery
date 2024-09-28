@@ -1,50 +1,42 @@
+/* index.scss - Styling for Header component */
+
 .header {
-  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed; /* Đặt header cố định */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-right: 100px;
-  padding-left: 100px;
-  position: fixed;
+  padding: 10px 20px; /* Giảm padding để thanh điều hướng nhỏ lại */
+  background-color: #333;
+
   top: 0;
-  right: 0;
   left: 0;
-  z-index: 10;
-  backdrop-filter: blur(3px);
+  width: 100%;
+  z-index: 1000;
+}
 
-  &__nav {
-    ul {
-      display: flex;
-      list-style: none;
-      gap: 30px;
 
-      li {
-        color: #fff;
-        font-size: 20px;
-        a {
-          text-decoration: none;
-          color: #fff;
-        }
 
-        &:hover {
-          &::after {
-            width: 100%;
-          }
-        }
+.header__logo img {
+  width: 50px; /* Giảm kích thước logo */
+}
 
-        &::after {
-          content: "";
-          display: block;
-          width: 0;
-          height: 2px;
-          background-color: rgb(2, 58, 27);
-          transition: all 0.4s;
-        }
-      }
-    }
-  }
+.header__nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.header__nav ul li {
+  display: inline-block;
+}
+
+.header__nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px; /* Giảm font size */
+  padding: 10px 15px; /* Giảm padding để thu nhỏ các mục trong điều hướng */
+}
+
+.header__nav ul li a:hover {
+  color: #ff6600;
 }

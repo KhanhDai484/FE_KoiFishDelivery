@@ -6,20 +6,17 @@ box-sizing: border-box;
 font-family: "Poppins", sans-serif;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: url('https://i.pinimg.com/originals/c9/bb/4c/c9bb4cf31417f2a8d59c5931d34ca67f.gif') no-repeat;
-  background-size: cover;
-  background-position: center;
-
-}
 
 
 
 .login {
+  background: url('https://i.pinimg.com/originals/c9/bb/4c/c9bb4cf31417f2a8d59c5931d34ca67f.gif') no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 
   .login_video {
     position: absolute;
@@ -27,7 +24,6 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    
 
   }
   &__form-container {

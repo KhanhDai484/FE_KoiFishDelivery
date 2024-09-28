@@ -1,0 +1,263 @@
+.homepage {
+  padding: 20px;
+
+  .section {
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h1, h2, h3 {
+      color: #ff6600;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+
+    // Canh giữa và giảm kích thước ảnh
+    img {
+      display: block;
+      max-width: 70%;  // Giảm kích thước ảnh (có thể tùy chỉnh theo nhu cầu)
+      margin: 20px auto;  // Canh giữa
+      border-radius: 10px;
+    }
+
+    ul {
+      padding-left: 40px;
+      margin-bottom: 20px;
+      li {
+        margin-bottom: 10px;
+        font-size: 16px;
+        strong {
+          color: #ff6600;
+        }
+      }
+    }
+  }
+
+  // Giới thiệu dịch vụ
+  .introduction {
+    h1 {
+      font-size: 28px;
+    }
+  }
+
+  // Quy trình vận chuyển
+  .process {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  // Bảng giá
+  .pricing {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  // Chính sách
+  .policy {
+    h2 {
+      font-size: 24px;
+    }
+  }
+
+  // Blog chia sẻ
+  .blog {
+    h2 {
+      font-size: 24px;
+    }
+
+    .blog-section {
+      margin: 20px 0;
+
+      h3 {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      ul {
+        li {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+
+  // Tin tức
+  .news {
+    h2 {
+      font-size: 24px;
+    }
+
+    // Ảnh trong phần tin tức không bị thu nhỏ
+  
+
+    .news-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #ff6600;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #e65c00;
+      }
+    }
+  }
+
+  // Câu hỏi thường gặp (FAQ)
+  .faq {
+    h2 {
+      font-size: 24px;
+    }
+
+    .faq-item {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+
+      h3 {
+        font-size: 20px;
+        color: #ff6600;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-left: 20px;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+.contact-support {
+  background-color: #f9f9f9;
+  text-align: center;
+
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .cta-button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #e65c00;
+    }
+  }
+
+  .contact-info {
+    margin-top: 20px;
+
+    p {
+      font-size: 16px;
+      color: #555;
+
+      strong {
+        color: #333;
+      }
+    }
+  }
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #ff6600;
+  }
+
+  .footer-contact-info {
+    margin-bottom: 15px;
+
+    p {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+  }
+
+  .footer-social-links {
+    a {
+      color: #ff6600;
+      margin: 0 10px;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .footer-policy {
+    margin-top: 15px;
+
+    a {
+      color: #ff6600;
+      margin: 0 10px;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+.contact-support {
+  text-align: center;
+  margin: 40px 0;
+
+  h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .contact-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white; // Màu nền Zalo
+    color: blue;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+
+    &:hover {
+      background-color: #dbb331; // Màu khi hover
+    }
+
+    .zalo-icon {
+      width: 24px; // Kích thước biểu tượng
+      height: 24px; // Kích thước biểu tượng
+      margin-right: 8px; // Khoảng cách giữa biểu tượng và văn bản
+    }
+  }
+}
