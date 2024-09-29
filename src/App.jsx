@@ -3,11 +3,12 @@ import Header from "./components/header";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Login from "./pages/login";
 import HomePage from "./pages/home";
+import PackageForm from "./pages/packageform";
 
 const Layout = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Outlet />
     </>
   );
@@ -26,6 +27,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/packageform",
+          element: <PackageForm />,
         },
       ],
     },
