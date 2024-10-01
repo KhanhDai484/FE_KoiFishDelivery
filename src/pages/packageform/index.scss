@@ -1,0 +1,43 @@
+.package_form_header {
+  background-color: white;
+  min-height: calc(2.75rem * var(--mantine-scale));
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px 0px;
+  padding: 15px;
+  border: none;
+}
+.wrapper {
+  padding-top: 30px;
+  width: 2000px;
+  margin: 0px auto;
+}
+.product_form,
+.additional_form {
+  background-color: white;
+  border-radius: 2%;
+}
+.button {
+  justify-content: center;
+}
+body {
+  background-color: rgb(231, 247, 247);
+}
+.product_form {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+.additional_form {
+  margin-left: 0px;
+  margin-right: 400px;
+}
+.name_kg_quantity {
+  display: flex;
+  justify-content: space-between;
+}
+.length_width_height {
+  display: flex;
+  justify-content: space-between;
+}
+.border {
+  border: 2px solid rgb(228, 228, 228);
+  border-radius: 5px;
+}
