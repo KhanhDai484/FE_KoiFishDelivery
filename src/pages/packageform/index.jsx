@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.scss";
-import { Col, Form, Modal, Row } from "antd";
+import { Button, Col, Form, Modal, Row } from "antd";
 import { useForm } from "antd/es/form/Form";
 
 function PackageForm() {
@@ -10,6 +10,8 @@ function PackageForm() {
   const [orderCode, setOrderCode] = useState("");
   const [totalWeight, setTotalWeight] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [form] = useForm();
 
   const handleProductChange = (index, key, value) => {
     const updatedProducts = [...products];
@@ -31,21 +33,33 @@ function PackageForm() {
     ]);
   };
 
-  const handleRemoveProduct = (index) => {
-    if (products.length > 1) {
-      const updatedProducts = products.filter((_, i) => i !== index);
+  const handleConfirmDelete = () => {
+    if (deleteIndex != null && products.length > 1) {
+      const updatedProducts = products.filter((_, i) => i !== deleteIndex);
+      console.log(deleteIndex);
       setProducts(updatedProducts);
+
       // Update total weight khi product thay doi
       let total = 0;
       updatedProducts.forEach((product) => {
         total += product.weight * product.quantity;
       });
       setTotalWeight(total);
+      setDeleteIndex(null);
+      setIsOpen(false);
     }
   };
 
+  const handleRemoveProduct = (index) => {
+    setDeleteIndex(index);
+    setIsOpen(true);
+  };
+  const handleHidenModal = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Form className="package_form">
+    <Form className="package_form" form={form}>
       <h2 className="package_form_header">Thông tin kiện hàng</h2>
       <Row className="wrapper">
         <Col span={12}>
@@ -127,21 +141,19 @@ function PackageForm() {
               </div>
 
               <div className="product_actions">
-                <button type="primary" onClick={handleAddProducts}>
+                <Button type="primary" onClick={handleAddProducts}>
                   Thêm sản phẩm
-                </button>
+                </Button>
                 {/* products.length > 1 : khi ma products <1 thi khong xuat hien button nay */}
                 {products.length > 1 && (
-                  <button
+                  <Button
                     type="primary"
+                    danger
                     onClick={() => handleRemoveProduct(index)}
                   >
                     Xóa sản phẩm
-                  </button>
+                  </Button>
                 )}
-                <Modal title="Xóa sản phẩm" open={isOpen}>
-                  <p>Bạn chắc chắn muốn xóa !!!</p>
-                </Modal>
               </div>
             </div>
           ))}
@@ -169,11 +181,19 @@ function PackageForm() {
             </Form.Item>
             <div className="summary">
               <h4>Tổng khối lượng: {totalWeight} kg</h4>
-              <button>Xác nhận</button>
+              <Button type="primary">Xác nhận</Button>
             </div>
           </div>
         </Col>
       </Row>
+      <Modal
+        title="Xóa sản phẩm"
+        open={isOpen}
+        onOk={handleConfirmDelete}
+        onCancel={handleHidenModal}
+      >
+        <p>Bạn chắc chắn muốn xóa !!!</p>
+      </Modal>
     </Form>
   );
 }

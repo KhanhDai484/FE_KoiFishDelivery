@@ -4,6 +4,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Login from "./pages/login";
 import HomePage from "./pages/home";
 import PackageForm from "./pages/packageform";
+import NewPackage from "./pages/newpackage";
+import Map from "./components/map";
+import CalculateRoute from "./components/map";
 
 const Layout = () => {
   return (
@@ -31,6 +34,18 @@ function App() {
         {
           path: "/packageform",
           element: <PackageForm />,
+        },
+        {
+          path: "/calculateroute",
+          element: <CalculateRoute />,
+        },
+        {
+          path: "/newpackage",
+          element: <NewPackage />,
+        },
+        {
+          path: "/map",
+          element: <Map />,
         },
       ],
     },
