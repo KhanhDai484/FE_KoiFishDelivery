@@ -7,6 +7,8 @@ import PackageForm from "./pages/packageform";
 import NewPackage from "./pages/newpackage";
 import Map from "./components/map";
 import CalculateRoute from "./components/map";
+import ManageOrder from "./pages/manageOrder";
+import ManageConfirmOrder from "./pages/manageConfirmOrder";
 
 const Layout = () => {
   return (
@@ -46,6 +48,14 @@ function App() {
         {
           path: "/map",
           element: <Map />,
+        },
+        {
+          path: "/manageorder",
+          element: <ManageOrder />,
+        },
+        {
+          path: "/manageconfirmorder",
+          element: <ManageConfirmOrder />,
         },
       ],
     },
