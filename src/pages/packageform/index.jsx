@@ -1,201 +1,203 @@
 import React, { useState } from "react";
 import "./index.scss";
-import { Button, Col, Form, Modal, Row } from "antd";
+import { Button, Col, Form, Modal, Row, Select, Input, Radio } from "antd";
 import { useForm } from "antd/es/form/Form";
 
-function PackageForm() {
-  const [products, setProducts] = useState([
-    { name: "", weight: 0, length: 0, width: 0, height: 0, quantity: 1 },
+function KoiFishForm() {
+  const [fishData, setFishData] = useState([
+    { color: "", gender: "male", length: 0, weight: 0, breed: "", quantity: 1 },
   ]);
-  const [orderCode, setOrderCode] = useState("");
-  const [totalWeight, setTotalWeight] = useState(0);
+  const [userInfo, setUserInfo] = useState({ name: "", phone: "" });
   const [isOpen, setIsOpen] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [form] = useForm();
 
-  const handleProductChange = (index, key, value) => {
-    const updatedProducts = [...products];
-    updatedProducts[index][key] = value;
-    setProducts(updatedProducts);
-
-    // Update total weight khi product thay doi
-    let total = 0;
-    updatedProducts.forEach((product) => {
-      total += product.weight * product.quantity;
-    });
-    setTotalWeight(total);
+  const handleFishChange = (index, key, value) => {
+    const updatedFishData = [...fishData];
+    updatedFishData[index][key] = value;
+    setFishData(updatedFishData);
   };
 
-  const handleAddProducts = () => {
-    setProducts([
-      ...products,
-      { name: "", weight: 0, length: 0, width: 0, height: 0, quantity: 1 },
+  const handleAddFish = () => {
+    setFishData([
+      ...fishData,
+      {
+        color: "",
+        gender: "male",
+        length: 0,
+        weight: 0,
+        breed: "",
+        quantity: 1,
+      },
     ]);
   };
 
   const handleConfirmDelete = () => {
-    if (deleteIndex != null && products.length > 1) {
-      const updatedProducts = products.filter((_, i) => i !== deleteIndex);
-      console.log(deleteIndex);
-      setProducts(updatedProducts);
-
-      // Update total weight khi product thay doi
-      let total = 0;
-      updatedProducts.forEach((product) => {
-        total += product.weight * product.quantity;
-      });
-      setTotalWeight(total);
+    if (deleteIndex != null && fishData.length > 1) {
+      const updatedFishData = fishData.filter((_, i) => i !== deleteIndex);
+      setFishData(updatedFishData);
       setDeleteIndex(null);
       setIsOpen(false);
     }
   };
 
-  const handleRemoveProduct = (index) => {
+  const handleRemoveFish = (index) => {
     setDeleteIndex(index);
     setIsOpen(true);
   };
+
   const handleHidenModal = () => {
     setIsOpen(false);
   };
 
   return (
-    <Form className="package_form" form={form}>
-      <h2 className="package_form_header">Thông tin kiện hàng</h2>
-      <Row className="wrapper">
+    <Form className="koi_fish_form" form={form}>
+      <h2 className="form_header">Thông tin người nuôi</h2>
+      <Row className="user_info">
         <Col span={12}>
-          {products.map((product, index) => (
-            <div key={index} className="product_form">
-              <h3>Sản Phẩm {index + 1}</h3>
+          <Form.Item label="Họ và Tên" name="name">
+            <Input
+              type="text"
+              placeholder="Họ và Tên"
+              value={userInfo.name}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, name: e.target.value })
+              }
+            />
+          </Form.Item>
+          <Form.Item label="Số điện thoại" name="phone">
+            <Input
+              type="text"
+              placeholder="Số điện thoại"
+              value={userInfo.phone}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, phone: e.target.value })
+              }
+            />
+          </Form.Item>
+        </Col>
+      </Row>
+
+      <h2 className="form_header">Thông tin cá Koi</h2>
+      <Row className="wrapper">
+        <Col span={24}>
+          {fishData.map((fish, index) => (
+            <div key={index} className="fish_form">
+              <h3>Cá Koi {index + 1}</h3>
               <div className="border">
-                <div className="name_kg_quantity">
-                  <Form.Item label="Tên hàng hóa" name={`name -${index}`}>
-                    <input
-                      className="border"
-                      type="text"
-                      placeholder="Tên hàng hóa"
-                      value={product.name}
-                      onChange={(e) =>
-                        handleProductChange(index, "name", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-
-                  <Form.Item label="Khối lượng (kg)" name={`weight -${index}`}>
-                    <input
-                      className="border"
-                      type="number"
-                      placeholder="Khối lượng (kg)"
-                      value={product.weight}
-                      onChange={(e) =>
-                        handleProductChange(index, "weight", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item label="Số lượng" name={`quantity -${index}`}>
-                    <input
-                      className="border"
-                      type="number"
-                      placeholder="Số lượng"
-                      value={product.quantity}
-                      onChange={(e) =>
-                        handleProductChange(index, "quantity", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-                </div>
-                <div className="length_width_height">
-                  <Form.Item label="Dài (cm)" name={`length -${index}`}>
-                    <input
-                      className="border"
-                      type="number"
-                      placeholder="Dài (cm)"
-                      value={product.length}
-                      onChange={(e) =>
-                        handleProductChange(index, "length", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item label="Rộng (cm)" name={`width -${index}`}>
-                    <input
-                      className="border"
-                      type="number"
-                      placeholder="Rộng (cm)"
-                      value={product.width}
-                      onChange={(e) =>
-                        handleProductChange(index, "width", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-                  <Form.Item label="Cao (cm)" name={`height -${index}`}>
-                    <input
-                      className="border"
-                      type="number"
-                      placeholder="Cao (cm)"
-                      value={product.height}
-                      onChange={(e) =>
-                        handleProductChange(index, "height", e.target.value)
-                      }
-                    />
-                  </Form.Item>
-                </div>
+                <Form.Item label="Màu sắc" name={`color-${index}`}>
+                  <Input
+                    type="text"
+                    placeholder="Màu sắc"
+                    value={fish.color}
+                    onChange={(e) =>
+                      handleFishChange(index, "color", e.target.value)
+                    }
+                  />
+                </Form.Item>
+                <Form.Item label="Giới tính" name={`gender-${index}`}>
+                  <Radio.Group
+                    value={fish.gender}
+                    onChange={(e) =>
+                      handleFishChange(index, "gender", e.target.value)
+                    }
+                  >
+                    <Radio value="male">Đực</Radio>
+                    <Radio value="female">Cái</Radio>
+                  </Radio.Group>
+                </Form.Item>
+                <Form.Item label="Kích thước (cm)" name={`length-${index}`}>
+                  <Input
+                    type="number"
+                    placeholder="Kích thước (cm)"
+                    value={fish.length}
+                    onChange={(e) =>
+                      handleFishChange(index, "length", e.target.value)
+                    }
+                  />
+                </Form.Item>
+                <Form.Item label="Cân nặng (kg)" name={`weight-${index}`}>
+                  <Input
+                    type="number"
+                    placeholder="Cân nặng (kg)"
+                    value={fish.weight}
+                    onChange={(e) =>
+                      handleFishChange(index, "weight", e.target.value)
+                    }
+                  />
+                </Form.Item>
+                <Form.Item label="Giống cá" name={`breed-${index}`}>
+                  <Select
+                    value={fish.breed}
+                    onChange={(value) =>
+                      handleFishChange(index, "breed", value)
+                    }
+                  >
+                    <Select.Option value="Koi Kohaku">
+                      Cá Koi Kohaku
+                    </Select.Option>
+                    <Select.Option value="Koi Sanke">
+                      Cá Koi Sanke
+                    </Select.Option>
+                    <Select.Option value="Koi Showa">
+                      Cá Koi Showa
+                    </Select.Option>
+                    <Select.Option value="Koi Ogon">Cá Koi Ogon</Select.Option>
+                    <Select.Option value="Koi Chagoi">
+                      Cá Koi Chagoi
+                    </Select.Option>
+                    <Select.Option value="Koi Bướm">Cá Koi Bướm</Select.Option>
+                    <Select.Option value="Koi Shusui">
+                      Cá Koi Shusui
+                    </Select.Option>
+                    <Select.Option value="Koi Tancho">
+                      Cá Koi Tancho
+                    </Select.Option>
+                    <Select.Option value="Koi Utsuri">
+                      Cá Koi Utsuri
+                    </Select.Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item label="Số lượng" name={`quantity-${index}`}>
+                  <Input
+                    type="number"
+                    placeholder="Số lượng"
+                    value={fish.quantity}
+                    onChange={(e) =>
+                      handleFishChange(index, "quantity", e.target.value)
+                    }
+                  />
+                </Form.Item>
               </div>
-
-              <div className="product_actions">
-                <Button type="primary" onClick={handleAddProducts}>
-                  Thêm sản phẩm
+              <div className="fish_actions">
+                <Button type="primary" onClick={handleAddFish}>
+                  Thêm cá
                 </Button>
-                {/* products.length > 1 : khi ma products <1 thi khong xuat hien button nay */}
-                {products.length > 1 && (
+                {fishData.length > 1 && (
                   <Button
                     type="primary"
                     danger
-                    onClick={() => handleRemoveProduct(index)}
+                    onClick={() => handleRemoveFish(index)}
                   >
-                    Xóa sản phẩm
+                    Xóa cá
                   </Button>
                 )}
               </div>
             </div>
           ))}
         </Col>
-        <Col span={9}>
-          <div className="additional_form">
-            <h3>Thông Tin Chi Tiết</h3>
-            <Form.Item label="Mã vận đơn" name="mã vận đơn">
-              <input
-                className="border"
-                type="text"
-                placeholder="Mã vận đơn"
-                value={orderCode}
-                onChange={(e) => setOrderCode(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item label="Giá trị hàng hóa" name="giá trị hàng hóa">
-              <input
-                className="border"
-                type="text"
-                placeholder="Giá trị hàng hóa"
-                value={orderCode}
-                onChange={(e) => setOrderCode(e.target.value)}
-              />
-            </Form.Item>
-            <div className="summary">
-              <h4>Tổng khối lượng: {totalWeight} kg</h4>
-              <Button type="primary">Xác nhận</Button>
-            </div>
-          </div>
-        </Col>
       </Row>
+
       <Modal
-        title="Xóa sản phẩm"
+        title="Xóa cá"
         open={isOpen}
         onOk={handleConfirmDelete}
         onCancel={handleHidenModal}
       >
-        <p>Bạn chắc chắn muốn xóa !!!</p>
+        <p>Bạn chắc chắn muốn xóa cá này không?</p>
       </Modal>
     </Form>
   );
 }
 
-export default PackageForm;
+export default KoiFishForm;

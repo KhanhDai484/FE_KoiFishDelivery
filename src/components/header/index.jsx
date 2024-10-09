@@ -66,6 +66,9 @@ function Header() {
             <a onClick={() => handleNavigation("faq")}>FAQ</a>
           </li>
           <li>
+            <Link to="/order"></Link>
+          </li>
+          <li>
             <Link to="/login">
               <UserOutlined />
             </Link>

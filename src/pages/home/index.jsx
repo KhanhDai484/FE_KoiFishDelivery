@@ -11,7 +11,7 @@ export default function HomePage() {
         {/* Giới thiệu dịch vụ */}
 
         <section id="introduction" className="section introduction">
-          <h1>Giới thiệu về dịch vụ</h1>
+          <h2>Giới thiệu về dịch vụ</h2>
           <p>
             Chúng tôi tự hào cung cấp dịch vụ vận chuyển cá koi an toàn, chất
             lượng với nhiều năm kinh nghiệm trong ngành. Đội ngũ chuyên gia của

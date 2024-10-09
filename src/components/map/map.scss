@@ -1,0 +1,28 @@
+#map {
+  width: 100%;
+
+}
+.continue-button {
+  display: block;            /* Chuyển nút thành block để dễ căn giữa */
+  width: 200px;              /* Đặt chiều rộng cho nút */
+  height: 50px;              /* Đặt chiều cao cho nút */
+  margin: 20px auto;         /* Căn giữa nút theo chiều ngang */
+  background-color: #28a745; /* Màu nền xanh lá */
+  color: white;              /* Màu chữ trắng */
+  border: none;              /* Loại bỏ viền mặc định */
+  border-radius: 25px;       /* Bo tròn góc nút */
+  font-size: 18px;           /* Tăng kích thước font chữ */
+  font-weight: bold;         /* Chữ đậm */
+  text-align: center;        /* Căn giữa văn bản trong nút */
+  cursor: pointer;           /* Thay đổi con trỏ khi hover vào nút */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+  
+  &:hover {
+    background-color: #218838; /* Màu khi hover */
+  }
+  
+  &:active {
+    background-color: #1e7e34; /* Màu khi nhấn giữ */
+  }
+}
+

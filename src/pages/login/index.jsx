@@ -3,13 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../config/firebase";
-<<<<<<< HEAD
-import { Form } from "antd";
-import { H2 } from "storybook/internal/components";
-
-=======
 import { Form, Input } from "antd";
->>>>>>> f347d3a7894c8f80b68ae12df16eed2900c4129c
+
+//import { H2 } from "storybook/internal/components";
+
 function Login() {
   //dung hook navigation de chuyen giua cac trang
   const navigate = useNavigate();
@@ -24,8 +21,6 @@ function Login() {
       });
   };
 
-<<<<<<< HEAD
-=======
   const handleLogin = async (values) => {
     console.log(values);
 
@@ -45,7 +40,6 @@ function Login() {
     }
   };
 
->>>>>>> f347d3a7894c8f80b68ae12df16eed2900c4129c
   return (
     <div className="login">
       {/* <div className="login__logo">
@@ -64,21 +58,14 @@ function Login() {
       <div className="login__form-container">
         <h3>Login your account</h3>
         <br></br>
-<<<<<<< HEAD
-        <Form className="login__form">
-=======
+
         <Form className="login__form" onFinish={handleLogin}>
->>>>>>> f347d3a7894c8f80b68ae12df16eed2900c4129c
           <Form.Item
             label="Username"
             name="username"
             rules={[{ required: true, message: "Vui lòng nhập tên!" }]}
           >
-<<<<<<< HEAD
-            <input type="text" placeholder="Username" />
-=======
             <Input type="text" placeholder="Username" />
->>>>>>> f347d3a7894c8f80b68ae12df16eed2900c4129c
           </Form.Item>
 
           <Form.Item
@@ -86,11 +73,7 @@ function Login() {
             name="password"
             rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
           >
-<<<<<<< HEAD
             <input type="password" placeholder="Password" />
-=======
-            <Input.Password type="password" placeholder="Password" />
->>>>>>> f347d3a7894c8f80b68ae12df16eed2900c4129c
           </Form.Item>
 
           <Form.Item>
