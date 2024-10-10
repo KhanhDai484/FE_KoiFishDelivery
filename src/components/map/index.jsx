@@ -77,10 +77,12 @@ function CalculateRoute() {
     }
   };
 
-  // Nút điều hướng đến trang PackageForm
   const handleNextPage = () => {
-    // Chuyển sang trang PackageForm và truyền giá trị cost
-    navigate("/packageform", { state: { cost } });
+    // Lấy địa chỉ từ Mapbox Directions
+    const destinationAddress = directions.getDestination().place_name;
+
+    // Chuyển sang trang PackageForm và truyền giá trị cost và destinationAddress
+    navigate("/packageform", { state: { cost, destinationAddress } });
   };
 
   return (
