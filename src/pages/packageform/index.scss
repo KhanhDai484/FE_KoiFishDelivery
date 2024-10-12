@@ -1,43 +1,76 @@
-.package_form_header {
-  background-color: white;
-  min-height: calc(2.75rem * var(--mantine-scale));
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 6px 0px;
-  padding: 15px;
+.koi_fish_form_wrapper {
+  display: flex;
+  justify-content: space-between; 
+  padding: 20px;
+}
+
+.koi_fish_form_container {
+  flex: 1;
+  margin-right: 40px; 
+}
+
+.summary {
+  flex: 0.5; 
+  background-color: #f0f0f0; 
+  padding: 20px;
+  border: 2px solid #4a90e2; /* Tạo khung với màu xanh lam nhạt */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  position: relative;
+  margin-left: auto; 
+  margin-right: auto; 
+  max-width: 400px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2{
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  h3 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  p, ul, li {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  ul {
+    padding-left: 20px;
+    list-style: disc;
+  }
+}
+
+.total_cost {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+button {
+  margin-top: 20px;
+}
+.payment_button {
+  margin-top: 20px;
+  background-color: #28a745; /* Màu xanh cho nút thanh toán */
   border: none;
-}
-.wrapper {
-  padding-top: 30px;
-  width: 2000px;
-  margin: 0px auto;
-}
-.product_form,
-.additional_form {
-  background-color: white;
-  border-radius: 2%;
-}
-.button {
-  justify-content: center;
-}
-body {
-  background-color: rgb(231, 247, 247);
-}
-.product_form {
-  margin-right: 50px;
-  margin-left: 50px;
-}
-.additional_form {
-  margin-left: 0px;
-  margin-right: 400px;
-}
-.name_kg_quantity {
-  display: flex;
-  justify-content: space-between;
-}
-.length_width_height {
-  display: flex;
-  justify-content: space-between;
-}
-.border {
-  border: 2px solid rgb(228, 228, 228);
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #218838; /* Màu khi hover */
+  }
 }
