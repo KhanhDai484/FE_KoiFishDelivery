@@ -4,12 +4,47 @@ import "./index.scss";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../config/firebase";
 import { Form, Input } from "antd";
+import { useState } from "react";
 
 //import { H2 } from "storybook/internal/components";
 
 function Login() {
-  //dung hook navigation de chuyen giua cac trang
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "https://localhost:7139/api/Auth/login",
+        {
+          username,
+          password,
+        }
+      );
+      const { token, user } = response.data;
+
+      // Lưu token và thông tin người dùng vào localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Điều hướng tới trang tương ứng với vai trò
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else if (user.role === "sales") {
+        navigate("/sales");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+  };
+
+  //dung hook navigation de chuyen giua cac trang
+
   const handleLoginGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
@@ -21,24 +56,24 @@ function Login() {
       });
   };
 
-  const handleLogin = async (values) => {
-    console.log(values);
+  // const handleLogin = async (values) => {
+  //   console.log(values);
 
-    try {
-      //gui request den server
-      const response = await api.post("login", values);
-      const { token } = response.data;
-      localStorage.setItem("token", token);
-      //luu tam thong tin nguoi dung vao localStorage
-      //muon lay thong tin nguoi dung : username, role, ... thi lay trong
-      localStorage.setItem("user", JSON.stringify(response.data));
-      //sau khi login xong se chuyen den trang HomePage
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-      alert("Nhap sai...!!!");
-    }
-  };
+  //   try {
+  //     //gui request den server
+  //     const response = await api.post("login", values);
+  //     const { token } = response.data;
+  //     localStorage.setItem("token", token);
+  //     //luu tam thong tin nguoi dung vao localStorage
+  //     //muon lay thong tin nguoi dung : username, role, ... thi lay trong
+  //     localStorage.setItem("user", JSON.stringify(response.data));
+  //     //sau khi login xong se chuyen den trang HomePage
+  //     navigate("/");
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert("Nhap sai...!!!");
+  //   }
+  // };
 
   return (
     <div className="login">
@@ -65,7 +100,12 @@ function Login() {
             name="username"
             rules={[{ required: true, message: "Vui lòng nhập tên!" }]}
           >
-            <Input type="text" placeholder="Username" />
+            <Input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -73,7 +113,12 @@ function Login() {
             name="password"
             rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
           >
-            <input type="password" placeholder="Password" />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item>
@@ -89,6 +134,7 @@ function Login() {
           />
           <span>Login with Google</span>
         </button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </div>
     </div>
   );

@@ -8,6 +8,9 @@ import Map from "./components/map";
 import CalculateRoute from "./components/map";
 import RegisterPage from "./pages/register/register";
 import Header from "./components/header"; // Đảm bảo Header được import
+import AdminPage from "./pages/admin/manager"; // Import trang Admin
+import SalesPage from "./pages/sales/sales"; // Import trang Sales
+import DeliveryPage from "./pages/delivery/delivery";
 
 const Layout = () => {
   return (
@@ -53,6 +56,18 @@ function App() {
         {
           path: "/register", // Trang Register
           element: <RegisterPage />,
+        },
+        {
+          path: "/admin", // Trang Admin
+          element: <AdminPage />,
+        },
+        {
+          path: "/sales", // Trang Sales
+          element: <SalesPage />,
+        },
+        {
+          path: "/delivery", // Trang Delivery
+          element: <DeliveryPage />,
         },
       ],
     },

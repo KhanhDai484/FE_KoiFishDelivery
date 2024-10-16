@@ -15,6 +15,7 @@ function CalculateRoute() {
   const [directions, setDirections] = useState(null);
   const [distance, setDistance] = useState(null); // Lưu khoảng cách
   const [cost, setCost] = useState(null); // Lưu giá tiền
+  const [estimatedDeliveryDate, setEstimatedDeliveryDate] = useState(""); // Ngày giao hàng dự kiến
 
   const navigate = useNavigate(); // Khai báo useNavigate
 
@@ -23,7 +24,6 @@ function CalculateRoute() {
       const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v12",
-        center: [106.3648726, 10.7546174], // Initial center (Hồ Chí Minh)
         zoom: 9,
       });
 
@@ -48,8 +48,18 @@ function CalculateRoute() {
           cost = 100000 + (distanceKm - 50) * 2000; // tăng 2k/1km cho đơn trên 50km
         }
 
+        // Tính ngày giao hàng dự kiến
+        const today = new Date();
+        const deliveryDays = Math.ceil(distanceKm / 50); // Giả sử mỗi 100 km thêm 1 ngày
+        const deliveryDate = new Date(today);
+        deliveryDate.setDate(today.getDate() + deliveryDays);
+
+        // Định dạng ngày giao hàng dự kiến
+        const formattedDate = deliveryDate.toISOString().split("T")[0];
+
         setDistance(distanceKm.toFixed(2)); // Lưu khoảng cách (2 số thập phân)
         setCost(cost.toFixed(0)); // Lưu giá tiền
+        setEstimatedDeliveryDate(formattedDate); // Lưu ngày giao hàng dự kiến
       });
 
       // Lưu map và directions vào state
@@ -64,25 +74,15 @@ function CalculateRoute() {
     };
   }, [map]);
 
-  // Hàm xử lý tính toán tuyến đường khi người dùng nhập vào địa chỉ
-  const handleRouteCalculation = (e) => {
-    e.preventDefault();
-    const origin = e.target.origin.value;
-    const destination = e.target.destination.value;
-
-    if (directions) {
-      // Set điểm bắt đầu và điểm đến trong plugin directions
-      directions.setOrigin(origin);
-      directions.setDestination(destination);
-    }
-  };
-
   const handleNextPage = () => {
     // Lấy địa chỉ từ Mapbox Directions
-    const destinationAddress = directions.getDestination().place_name;
+    const startAddress = directions.getOrigin().place_name; // Địa chỉ bắt đầu
+    const destinationAddress = directions.getDestination().place_name; // Địa chỉ đến
 
-    // Chuyển sang trang PackageForm và truyền giá trị cost và destinationAddress
-    navigate("/packageform", { state: { cost, destinationAddress } });
+    // Chuyển sang trang PackageForm và truyền giá trị cost, destinationAddress và estimatedDeliveryDate
+    navigate("/packageform", {
+      state: { cost, startAddress, destinationAddress, estimatedDeliveryDate },
+    });
   };
 
   return (
@@ -101,11 +101,12 @@ function CalculateRoute() {
         </p>
       </div>
 
-      {/* Hiển thị khoảng cách và giá tiền */}
+      {/* Hiển thị khoảng cách, giá tiền và ngày giao hàng dự kiến */}
       {distance && cost && (
         <div>
-          <p>Distance: {distance} km</p>
-          <p>Cost: {cost} VND</p>
+          <p>Khoảng cách: {distance} km</p>
+          <p>Giá tiền vận chuyển: {cost} VND</p>
+          <p>Ngày giao dự kiến: {estimatedDeliveryDate}</p>
         </div>
       )}
 

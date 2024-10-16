@@ -7,7 +7,13 @@ import axios from "axios";
 
 function KoiFishForm() {
   const location = useLocation(); // Sử dụng useLocation để lấy giá trị từ state
-  const { cost } = location.state || { cost: 0 }; // Lấy cost từ state, nếu không có thì mặc định là 0
+  const { cost, startAddress, destinationAddress, estimatedDeliveryDate } =
+    location.state || {
+      cost: 0,
+      startAddress: "",
+
+      estimatedDeliveryDate: "",
+    };
 
   const [fishData, setFishData] = useState([
     {
@@ -102,7 +108,10 @@ function KoiFishForm() {
     };
 
     try {
-      const response = await axios.post("/api/koiFishData", data);
+      const response = await axios.post(
+        "https://localhost:7139/swagger/index.html",
+        data
+      );
       if (response.status === 200) {
         alert("Dữ liệu đã được gửi thành công!");
       }
@@ -142,16 +151,6 @@ function KoiFishForm() {
                   }
                 />
               </Form.Item>
-              <Form.Item label="Địa chỉ" name="address">
-                <Input
-                  type="text"
-                  placeholder="Địa chỉ"
-                  value={userInfo.address}
-                  onChange={(e) =>
-                    setUserInfo({ ...userInfo, address: e.target.value })
-                  }
-                />
-              </Form.Item>
             </Col>
           </Row>
 
@@ -178,19 +177,6 @@ function KoiFishForm() {
                     setRecipientInfo({
                       ...recipientInfo,
                       phone: e.target.value,
-                    })
-                  }
-                />
-              </Form.Item>
-              <Form.Item label="Địa chỉ" name="recipient-address">
-                <Input
-                  type="text"
-                  placeholder="Địa chỉ"
-                  value={recipientInfo.address}
-                  onChange={(e) =>
-                    setRecipientInfo({
-                      ...recipientInfo,
-                      address: e.target.value,
                     })
                   }
                 />
@@ -348,12 +334,10 @@ function KoiFishForm() {
           <h3>Thông tin người nuôi:</h3>
           <p>Họ và Tên: {userInfo.name}</p>
           <p>Số điện thoại: {userInfo.phone}</p>
-          <p>Địa chỉ: {userInfo.address}</p>
 
           <h3>Thông tin người nhận:</h3>
           <p>Họ và Tên: {recipientInfo.name}</p>
           <p>Số điện thoại: {recipientInfo.phone}</p>
-          <p>Địa chỉ: {recipientInfo.address}</p>
 
           <h3>Giá tiền cá:</h3>
           <ul>
@@ -370,6 +354,13 @@ function KoiFishForm() {
             })}
           </ul>
           <h2>Giá tiền vận chuyển: {cost.toLocaleString()} VND</h2>
+          <p>
+            <strong>Địa chỉ lấy cá:</strong> {startAddress}
+          </p>
+          <p>
+            <strong>Địa chỉ giao đến:</strong> {destinationAddress}
+          </p>
+          <h3>Ngày giao hàng dự kiến: {estimatedDeliveryDate}</h3>
           <h3>Tổng giá: {calculateTotalCost().toLocaleString()} VND</h3>
 
           {/* Nút Thanh Toán */}

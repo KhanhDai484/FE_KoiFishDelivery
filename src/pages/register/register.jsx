@@ -80,13 +80,34 @@ function RegisterPage() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); // Ngăn chặn việc reload lại trang
 
     if (validateForm()) {
-      console.log("form value", formValue);
+      const userData = {
+        name: formValue.userName,
+        email: formValue.email,
+        password: formValue.passWord,
+        confirmPassword: formValue.confirmPassword,
+      };
+      try {
+        const response = await axios.post(
+          "https://localhost:7139/api/Auth/register", // Địa chỉ API .NET
+          userData, // Gửi dữ liệu form đến backend
+          {
+            headers: {
+              "Content-Type": "application/json", // Đảm bảo định dạng JSON
+            },
+          }
+        );
+        console.log("Đăng ký thành công", response.data);
+        // Bạn có thể thêm logic để xử lý khi đăng ký thành công, ví dụ như điều hướng người dùng đến trang khác
+      } catch (error) {
+        console.error("Lỗi trong quá trình đăng ký:", error);
+        // Xử lý lỗi ở đây, ví dụ hiển thị thông báo lỗi cho người dùng
+      }
     } else {
-      console.log("form invalid");
+      console.log("Form không hợp lệ");
     }
   };
 

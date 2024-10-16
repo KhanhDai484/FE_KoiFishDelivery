@@ -2,10 +2,25 @@ import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { UserOutlined, UserAddOutlined } from "@ant-design/icons";
 import "./index.scss";
+import { useEffect, useState } from "react";
 
 function Header() {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    // Kiểm tra thông tin người dùng từ localStorage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   // Function to handle navigation to sections
   const handleNavigation = (sectionId) => {
@@ -37,7 +52,23 @@ function Header() {
           />
         </Link>
       </div>
-
+      <div className="header__profile">
+        {user ? (
+          <div className="profile-menu">
+            <UserOutlined />
+            <span>{user.username}</span>
+            <div className="dropdown-menu">
+              <p>Email: {user.email}</p>
+              <p>Role: {user.role}</p>
+              <button onClick={handleLogout}>Logout</button>
+            </div>
+          </div>
+        ) : (
+          <Link to="/login">
+            <UserOutlined />
+          </Link>
+        )}
+      </div>
       <nav className="header__nav">
         <ul>
           <li>
